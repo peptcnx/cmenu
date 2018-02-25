@@ -11,6 +11,7 @@ namespace CMenu.Runners
         {
             Reader = reader;
             Writer = writer;
+            Localization = new MenuRunnerLocalization();
         }
 
         public TextReader Reader { get; }
