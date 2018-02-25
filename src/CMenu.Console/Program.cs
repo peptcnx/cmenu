@@ -16,35 +16,27 @@ namespace CMenu.Console
 
         private static Func<string, Task> Print => System.Console.Out.WriteLineAsync;
 
-        private static IMenu GetMenu() => new Menu
+        private static IMenu GetMenu()
         {
-            Title = "Sample application",
-            MenuItems =
+            return new Menu
             {
-                new ActionMenuItem
+                Title = "Sample application",
+                MenuItems =
                 {
-                    Title = "Greet me",
-                    Action = () => Print("Ahoj")
-                },
-                new ActionMenuItem
-                {
-                    Title = "Say hello",
-                    Action = () => Print("HELLO")
-                },
-                new SubMenuMenuItem
-                {
-                    Title = "item title",
-                    MenuItems = 
+                    new ActionMenuItem
                     {
-                        new ActionMenuItem
-                        {
-                            Title = "Say Charles",
-                            Action = () => Print("Charles")
-                        }
-                    }
+                        Title = "Greet me",
+                        Action = () => Print("Ahoj")
+                    },
+                    new ActionMenuItem
+                    {
+                        Title = "Say hello",
+                        Action = () => Print("HELLO")
+                    },
+                    new SubmenuMenuItem("item title", CreateItems(5))
                 }
-            }
-        };
+            };
+        }
 
         private static ActionMenuItem[] CreateItems(int count)
         {

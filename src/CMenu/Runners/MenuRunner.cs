@@ -31,7 +31,7 @@ namespace CMenu.Runners
                 {
                     case null:
                         return;
-                    case ISubMenuMenuItem submenu:
+                    case ISubmenuMenuItem submenu:
                         await Run(submenu);
                         continue;
                     case IActionMenuItem action:
@@ -122,7 +122,7 @@ namespace CMenu.Runners
                 PrintOptionValue((++number).ToString());
                 PrintDelimiter();
                 PrintOptionTitle(item.Title);
-                if(item is SubMenuMenuItem)
+                if(item is SubmenuMenuItem)
                     PrintSubmenuArrow();
                 await Writer.WriteLineAsync();
             }

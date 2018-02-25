@@ -1,6 +1,6 @@
 ﻿namespace CMenu
 {
-    public interface ISubMenuMenuItem : IMenuItem, IMenu
+    public interface ISubmenuMenuItem : IMenuItem, IMenu
     {
     }
 }
