@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Globalization;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -14,8 +15,10 @@ namespace CMenu.Runners
 
         public TextReader Reader { get; }
         public TextWriter Writer { get; }
+        public MenuRunnerLocalization Localization { get; set; }
 
-        protected int ConsoleWidth { get; set; } = 80;
+
+        protected int ConsoleWidth { get; set; } = -1;
 
         public async Task Run(IMenu menu)
         {
@@ -33,23 +36,27 @@ namespace CMenu.Runners
                         continue;
                     case IActionMenuItem action:
                         if (action.Action == null)
-                            await Writer.WriteLineAsync("Action for item is not defined.");
+                            await Writer.WriteLineAsync(Localization?.ActionIsNotDefined);
                         else
                             await action.Action();
                         continue;
                 }
 
-                await Writer.WriteLineAsync("Cannot handle this option!");
+                await Writer.WriteLineAsync(Localization?.CannotHandleOption);
             }
-
         }
-
+        
         protected virtual async Task<IMenuItem> GetOption(IMenu menu)
         {
+            // print question
+            string value = await Enter(Localization?.ChooseOption);
+
+            var exitValue = Localization?.ExitOptionValue?.Trim().ToLower();
+
             while (true)
             {
-                var option = (await Reader.ReadLineAsync()).Trim().ToLower();
-                if (option == "x")
+                var option = value.Trim().ToLower();
+                if (option == exitValue)
                 {
                     return null;
                 }
@@ -63,9 +70,44 @@ namespace CMenu.Runners
                     }
                 }
 
-                await Writer.WriteLineAsync($"Value \"{option}\" is not valid. Please enter a valid option.");
-                await Writer.WriteAsync(": ");
+                await Writer.WriteLineAsync(string.Format(Localization?.OptionIsNotValid, value));
+                value = await Enter(Localization?.TryAgainPrompt);
             }
+        }
+
+        /// <summary>
+        /// Ask user for a value
+        /// </summary>
+        /// <param name="message">Display message for user</param>
+        /// <returns></returns>
+        public virtual async Task<string> Enter(string message)
+        {
+            await Writer.WriteAsync(message);
+            return await Reader.ReadLineAsync();
+        }
+
+        /// <summary>
+        /// Ask user for a value of particular type
+        /// </summary>
+        /// <typeparam name="T">Type of requested value</typeparam>
+        /// <param name="message">Display message for user</param>
+        /// <returns></returns>
+        public virtual async Task<T> Enter<T>(string message)
+        {
+            var text = await Enter(message);
+            var value = ConvertValue<T>(text);
+            return value;
+        }
+
+        /// <summary>
+        /// Convert text to particular type
+        /// </summary>
+        /// <typeparam name="T">The resulting type</typeparam>
+        /// <param name="value">Input string</param>
+        /// <returns></returns>
+        protected virtual T ConvertValue<T>(string value)
+        {
+            return (T)Convert.ChangeType(value, typeof(T), CultureInfo.InvariantCulture);
         }
 
         protected virtual async void PrintMenu(IMenu menu)
@@ -86,18 +128,15 @@ namespace CMenu.Runners
             }
 
             // exit option
-            PrintOptionValue("X");
+            PrintOptionValue(Localization?.ExitOptionValue);
             PrintDelimiter();
-            PrintOptionTitle("Exit");
+            PrintOptionTitle(Localization?.ExitOptionTitle);
             await Writer.WriteLineAsync();
-
-            // print question
-            await Writer.WriteAsync("Choose option: ");
         }
 
         protected virtual async void PrintDelimiter()
         {
-            await Writer.WriteAsync(" - ");
+            await Writer.WriteAsync(Localization?.OptionDelimiter);
         }
 
         protected virtual async void PrintOptionTitle(string title)
@@ -107,29 +146,29 @@ namespace CMenu.Runners
 
         protected virtual async void PrintSubmenuArrow()
         {
-            await Writer.WriteAsync(" -->");
+            await Writer.WriteAsync(Localization?.SubmenuArray);
         }
 
         protected virtual async void PrintOptionValue(string value)
         {
-            await Writer.WriteAsync("  ");
+            await Writer.WriteAsync(Localization?.OptionIndent);
             await Writer.WriteAsync(value);
         }
 
         protected virtual async void PrintHeader(IMenu menu)
         {
-            int charCount = ConsoleWidth - 1;
+            int charCount = ConsoleWidth < 0 ? menu.Title.Length + 4 : ConsoleWidth - 1;
             int space1Width = (charCount - menu.Title.Length) / 2 - 1;
             int space2Width = charCount - 2 - space1Width - menu.Title.Length;
-            string line = new string('#', charCount);
+            string line = new string(Localization.MenuHeaderBorder, charCount);
 
             await Writer.WriteLineAsync(line);
 
-            await Writer.WriteAsync('#');
+            await Writer.WriteAsync(Localization.MenuHeaderBorder);
             await Writer.WriteAsync(new string(' ', space1Width));
             await Writer.WriteAsync(menu.Title);
             await Writer.WriteAsync(new string(' ', space2Width));
-            await Writer.WriteLineAsync('#');
+            await Writer.WriteLineAsync(Localization.MenuHeaderBorder);
 
             await Writer.WriteLineAsync(line);
         }

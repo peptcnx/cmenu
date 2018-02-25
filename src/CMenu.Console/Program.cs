@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Dynamic;
+using System.Linq;
 using System.Threading.Tasks;
+using CMenu.Runners;
 
 namespace CMenu.Console
 {
@@ -21,30 +24,35 @@ namespace CMenu.Console
                 new ActionMenuItem
                 {
                     Title = "Greet me",
-                    Description = "Print greetings",
                     Action = () => Print("Ahoj")
                 },
                 new ActionMenuItem
                 {
-                    Title = "xxxx",
-                    Description = "jfdklsajdklsaj dsla dlk sajlkd",
-                    Action = () => Print("rrrr")
+                    Title = "Say hello",
+                    Action = () => Print("HELLO")
                 },
                 new SubMenuMenuItem
                 {
                     Title = "item title",
-                    Description = "item description",
-                    MenuItems =
+                    MenuItems = 
                     {
                         new ActionMenuItem
                         {
-                            Title = "xxxx",
-                            Action = () => Print("www")
+                            Title = "Say Charles",
+                            Action = () => Print("Charles")
                         }
                     }
                 }
-
             }
         };
+
+        private static ActionMenuItem[] CreateItems(int count)
+        {
+            return Enumerable.Range(1, count).Select(num => new ActionMenuItem
+            {
+                Title = $"Menu item {num}",
+                Action = () => Print($"Action from item {num}")
+            }).ToArray();
+        }
     }
 }

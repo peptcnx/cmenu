@@ -1,4 +1,7 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Globalization;
+using System.Threading.Tasks;
+using CMenu.Runners;
 
 namespace CMenu
 {
@@ -10,6 +13,7 @@ namespace CMenu
         {
             await MenuRunner.Run(menu);
         }
+
         public static Task RunAsync(this IMenu menu)
         {
             return MenuRunner.Run(menu);

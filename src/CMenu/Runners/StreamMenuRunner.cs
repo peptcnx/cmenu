@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Text;
 
-namespace CMenu
+namespace CMenu.Runners
 {
     public class StreamMenuRunner : MenuRunner
     {
