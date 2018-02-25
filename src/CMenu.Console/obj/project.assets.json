@@ -196,6 +196,16 @@
         "build": {
           "build/netstandard2.0/NETStandard.Library.targets": {}
         }
+      },
+      "CMenu/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.0",
+        "compile": {
+          "bin/placeholder/CMenu.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/CMenu.dll": {}
+        }
       }
     }
   },
@@ -656,10 +666,16 @@
         "netstandard.library.2.0.0.nupkg.sha512",
         "netstandard.library.nuspec"
       ]
+    },
+    "CMenu/1.0.0": {
+      "type": "project",
+      "path": "../CMenu/CMenu.csproj",
+      "msbuildProject": "../CMenu/CMenu.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.0": [
+      "CMenu >= 1.0.0",
       "Microsoft.NETCore.App >= 2.0.0"
     ]
   },
@@ -669,12 +685,15 @@
   },
   "project": {
     "version": "1.0.0",
+    "restoreSettings": {
+      "hideWarningsAndErrors": true
+    },
     "restore": {
-      "projectUniqueName": "C:\\code\\cmenu\\src\\CMenu.Console\\CMenu.Console.csproj",
+      "projectUniqueName": "c:\\code\\cmenu\\src\\CMenu.Console\\CMenu.Console.csproj",
       "projectName": "CMenu.Console",
-      "projectPath": "C:\\code\\cmenu\\src\\CMenu.Console\\CMenu.Console.csproj",
+      "projectPath": "c:\\code\\cmenu\\src\\CMenu.Console\\CMenu.Console.csproj",
       "packagesPath": "C:\\Users\\josef.pohorely\\.nuget\\packages\\",
-      "outputPath": "C:\\code\\cmenu\\src\\CMenu.Console\\obj\\",
+      "outputPath": "c:\\code\\cmenu\\src\\CMenu.Console\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -693,7 +712,11 @@
       },
       "frameworks": {
         "netcoreapp2.0": {
-          "projectReferences": {}
+          "projectReferences": {
+            "c:\\code\\cmenu\\src\\CMenu\\CMenu.csproj": {
+              "projectPath": "c:\\code\\cmenu\\src\\CMenu\\CMenu.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

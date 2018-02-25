@@ -182,12 +182,15 @@
   },
   "project": {
     "version": "1.0.0",
+    "restoreSettings": {
+      "hideWarningsAndErrors": true
+    },
     "restore": {
-      "projectUniqueName": "C:\\code\\cmenu\\src\\CMenu\\CMenu.csproj",
+      "projectUniqueName": "c:\\code\\cmenu\\src\\CMenu\\CMenu.csproj",
       "projectName": "CMenu",
-      "projectPath": "C:\\code\\cmenu\\src\\CMenu\\CMenu.csproj",
+      "projectPath": "c:\\code\\cmenu\\src\\CMenu\\CMenu.csproj",
       "packagesPath": "C:\\Users\\josef.pohorely\\.nuget\\packages\\",
-      "outputPath": "C:\\code\\cmenu\\src\\CMenu\\obj\\",
+      "outputPath": "c:\\code\\cmenu\\src\\CMenu\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

@@ -5718,12 +5718,15 @@
   },
   "project": {
     "version": "1.0.0",
+    "restoreSettings": {
+      "hideWarningsAndErrors": true
+    },
     "restore": {
-      "projectUniqueName": "C:\\code\\cmenu\\src\\CMenu.Tests\\CMenu.Tests.csproj",
+      "projectUniqueName": "c:\\code\\cmenu\\src\\CMenu.Tests\\CMenu.Tests.csproj",
       "projectName": "CMenu.Tests",
-      "projectPath": "C:\\code\\cmenu\\src\\CMenu.Tests\\CMenu.Tests.csproj",
+      "projectPath": "c:\\code\\cmenu\\src\\CMenu.Tests\\CMenu.Tests.csproj",
       "packagesPath": "C:\\Users\\josef.pohorely\\.nuget\\packages\\",
-      "outputPath": "C:\\code\\cmenu\\src\\CMenu.Tests\\obj\\",
+      "outputPath": "c:\\code\\cmenu\\src\\CMenu.Tests\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -5759,7 +5762,6 @@
             "version": "[15.5.0, )"
           },
           "Microsoft.NETCore.App": {
-            "suppressParent": "All",
             "target": "Package",
             "version": "[2.0.0, )",
             "autoReferenced": true
