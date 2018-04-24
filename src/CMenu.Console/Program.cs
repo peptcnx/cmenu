@@ -10,7 +10,7 @@ namespace CMenu.Console
     {
         static void Main(string[] args)
         {
-            Extensions.MenuRunner = new MenuRunner(System.Console.In, System.Console.Out);
+            //Extensions.MenuRunner = new MenuRunner(System.Console.In, System.Console.Out);
             GetMenu().Run();
         }
 
@@ -23,16 +23,8 @@ namespace CMenu.Console
                 Title = "Sample application",
                 MenuItems =
                 {
-                    new ActionMenuItem
-                    {
-                        Title = "Greet me",
-                        Action = () => Print("Ahoj")
-                    },
-                    new ActionMenuItem
-                    {
-                        Title = "Say hello",
-                        Action = () => Print("HELLO")
-                    },
+                    new ActionMenuItem("Greet me", () => Print("Ahoj")),
+                    new ActionMenuItem("Say hello", () => System.Console.WriteLine("HELLO")),
                     new SubmenuMenuItem("item title", CreateItems(5))
                 }
             };
